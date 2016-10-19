@@ -29,7 +29,6 @@ libraryDependencies ++= Seq(
 coverageMinimum := 80
 coverageFailOnMinimum := true
 
-publishTo := Some("" at "")
 credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
 
 addCommandAlias("testCoverageReport",";clean;coverage;test;coverageReport")
