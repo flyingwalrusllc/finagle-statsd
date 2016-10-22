@@ -11,5 +11,5 @@ simple knobs settable via command line flags
 + com.crispywalrus.finagle.stats.hostname sets the (dog)statsd host
 + com.crispywalrus.finagle.stats.port the (dog)statsd port
 + com.crispywalrus.finagle.stats.implementation chooses between dog/statsd
->>>>>>> Stashed changes
+
 
