@@ -1,29 +1,25 @@
 
 name := "finagle-censorinus"
 organization := "com.crispywalrus"
-scalaVersion := "2.11.8"
+
+scalaVersion := "2.12.8"
+
 scalacOptions := Seq(
   "-encoding", "UTF-8",
   "-deprecation",
   "-feature",
   "-language:_",
-  "-unchecked",
-  "-Ydelambdafy:method",
-  "-Yno-adapted-args",
-  "-Ywarn-numeric-widen",
-  "-Xfuture",
-  "-Ybackend:GenBCode",
-  "-target:jvm-1.8",
-  "-Yopt:l:classpath"
+  "-unchecked"
 )
 
 libraryDependencies ++= Seq(
-  "com.twitter" %% "finagle-stats" % "6.39.0",
-  "com.github.gphat" % "censorinus_2.11" % "2.1.3",
-  "org.scala-lang.modules" %% "scala-java8-compat" % "0.8.0-RC8",
-  "org.scalatest" %% "scalatest" % "3.0.0" % Test,
-  "org.scalacheck" %% "scalacheck" % "1.13.2" % Test
-)
+  "com.twitter" %% "finagle-stats" % "19.7.0",
+  "com.github.gphat" %% "censorinus" % "2.1.15",
+  "org.scala-lang.modules" %% "scala-java8-compat" % "0.9.0"
+) ++ Seq(
+  "org.scalatest" %% "scalatest" % "3.0.8",
+  "org.scalacheck" %% "scalacheck" % "1.13.5"
+).map(_ % Test)
 
 // scoverage testing coverage config
 coverageMinimum := 80
