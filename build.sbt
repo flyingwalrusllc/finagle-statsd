@@ -4,6 +4,8 @@ organization := "com.crispywalrus"
 
 scalaVersion := "2.12.8"
 
+val finagleEcosystemVersion = com.twitter.BuildInfo.version
+
 scalacOptions := Seq(
   "-encoding", "UTF-8",
   "-deprecation",
@@ -13,7 +15,7 @@ scalacOptions := Seq(
 )
 
 libraryDependencies ++= Seq(
-  "com.twitter" %% "finagle-stats" % "19.7.0",
+  "com.twitter" %% "finagle-stats" % finagleEcosystemVersion,
   "com.github.gphat" %% "censorinus" % "2.1.15",
   "org.scala-lang.modules" %% "scala-java8-compat" % "0.9.0"
 ) ++ Seq(
