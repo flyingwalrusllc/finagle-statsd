@@ -6,17 +6,17 @@ import java.net._
 import scala.concurrent._, ExecutionContext.Implicits.global
 
 /**
- * super simple server that listens for UDP packets on a port. It's
- * here so we can push metrics through censorinus and check the
- * output on the far side.
- */
+  * super simple server that listens for UDP packets on a port. It's
+  * here so we can push metrics through censorinus and check the
+  * output on the far side.
+  */
 trait TestStatsDServer {
 
-  private[this] var running: Boolean = false
+  private[this] var running: Boolean       = false
   private[this] var messages: List[String] = List()
   private[this] var socket: DatagramSocket = null
 
-  def start(port: Int): Unit = {
+  def start(port: Int): Unit =
     if (!running) {
       socket = new DatagramSocket(port)
       socket.setSoTimeout(10)
@@ -25,7 +25,6 @@ trait TestStatsDServer {
         listen(port)
       }
     }
-  }
 
   def stop: Unit = {
     running = false
@@ -51,7 +50,7 @@ trait TestStatsDServer {
         }
       } catch {
         case ste: SocketTimeoutException => ()
-        case ex: Throwable => throw ex
+        case ex: Throwable               => throw ex
       }
     }
     running

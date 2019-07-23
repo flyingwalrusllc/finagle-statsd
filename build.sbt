@@ -1,10 +1,11 @@
 
-name := "finagle-censorinus"
-organization := "com.crispywalrus"
+name := "finagle-statsd"
+organization := "llc.flyingwalrus"
 
 scalaVersion := "2.12.8"
+crossScalaVersions := Seq("2.12.8","2.11.12")
 
-val finagleEcosystemVersion = com.twitter.BuildInfo.version
+val finagleEcosystemVersion = "19.7.0"
 
 scalacOptions := Seq(
   "-encoding", "UTF-8",
@@ -16,11 +17,10 @@ scalacOptions := Seq(
 
 libraryDependencies ++= Seq(
   "com.twitter" %% "finagle-stats" % finagleEcosystemVersion,
-  "com.github.gphat" %% "censorinus" % "2.1.15",
-  "org.scala-lang.modules" %% "scala-java8-compat" % "0.9.0"
+  "llc.flyingwalrus" %% "scala-statsd" % "2.1.16-SNAPSHOT"
 ) ++ Seq(
   "org.scalatest" %% "scalatest" % "3.0.8",
-  "org.scalacheck" %% "scalacheck" % "1.13.5"
+  "org.scalacheck" %% "scalacheck" % "1.14.0"
 ).map(_ % Test)
 
 // scoverage testing coverage config

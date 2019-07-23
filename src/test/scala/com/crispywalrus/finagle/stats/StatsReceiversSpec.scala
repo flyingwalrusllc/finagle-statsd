@@ -4,17 +4,13 @@ package stats
 
 import org.scalatest._
 
-class StatsReceiversSpec
-    extends FlatSpec
-    with Matchers
-    with BeforeAndAfterAll {
+class StatsReceiversSpec extends FlatSpec with Matchers with BeforeAndAfterAll {
 
   final val testport = 8225
   final val testhost = "localhost"
 
-  override def beforeAll: Unit = {
+  override def beforeAll: Unit =
     TestStatsDServer.start(testport)
-  }
 
   override def afterAll: Unit = {
     TestStatsDServer.stop
@@ -30,7 +26,7 @@ class StatsReceiversSpec
   }
   it should "create a counter" in {
     val rec = new StatsDStatsReceiver(testhost, testport, testFormatter)
-    val c = rec.counter("bobs", "your", "uncle")
+    val c   = rec.counter("bobs", "your", "uncle")
     Thread.sleep(20)
     val messages = TestStatsDServer.extract
     messages.size should be(1)
@@ -38,7 +34,7 @@ class StatsReceiversSpec
   }
   it should "record a counter being incremented" in {
     val rec = new StatsDStatsReceiver(testhost, testport, testFormatter)
-    val c = rec.counter("bobs", "your", "uncle")
+    val c   = rec.counter("bobs", "your", "uncle")
     c.incr(2)
     c.incr()
     Thread.sleep(20)
@@ -50,7 +46,7 @@ class StatsReceiversSpec
   }
   it should "create a gauge" in {
     val rec = new StatsDStatsReceiver(testhost, testport, testFormatter)
-    val c = rec.addGauge("bobs", "your", "uncle")(230.0f)
+    val c   = rec.addGauge("bobs", "your", "uncle")(230.0f)
     Thread.sleep(20)
     val messages = TestStatsDServer.extract
     messages.size should be(1)
@@ -58,7 +54,7 @@ class StatsReceiversSpec
   }
   it should "record a gauge" in {
     val rec = new StatsDStatsReceiver(testhost, testport, testFormatter)
-    val c = rec.addGauge("bobs", "your", "uncle") _
+    val c   = rec.addGauge("bobs", "your", "uncle") _
     c(2.0f)
     c(3.0f)
     Thread.sleep(20)
@@ -69,7 +65,7 @@ class StatsReceiversSpec
   }
   it should "create a stat" in {
     val rec = new StatsDStatsReceiver(testhost, testport, testFormatter)
-    val c = rec.stat("bobs", "your", "uncle")
+    val c   = rec.stat("bobs", "your", "uncle")
     c.add(100)
     c.add(110)
     Thread.sleep(20)
@@ -86,7 +82,7 @@ class StatsReceiversSpec
   }
   it should "create a counter" in {
     val rec = new DogStatsDStatsReceiver(testhost, testport, testFormatter)
-    val c = rec.counter("bobs", "your", "uncle")
+    val c   = rec.counter("bobs", "your", "uncle")
     Thread.sleep(20)
     val messages = TestStatsDServer.extract
     messages.size should be(1)
@@ -94,7 +90,7 @@ class StatsReceiversSpec
   }
   it should "record a counter being incremented" in {
     val rec = new DogStatsDStatsReceiver(testhost, testport, testFormatter)
-    val c = rec.counter("bobs", "your", "uncle")
+    val c   = rec.counter("bobs", "your", "uncle")
     c.incr(2)
     c.incr()
     Thread.sleep(20)
@@ -106,7 +102,7 @@ class StatsReceiversSpec
   }
   it should "create a gauge" in {
     val rec = new DogStatsDStatsReceiver(testhost, testport, testFormatter)
-    val c = rec.addGauge("bobs", "your", "uncle")(230.0f)
+    val c   = rec.addGauge("bobs", "your", "uncle")(230.0f)
     Thread.sleep(20)
     val messages = TestStatsDServer.extract
     messages.size should be(1)
@@ -114,7 +110,7 @@ class StatsReceiversSpec
   }
   it should "record a gauge" in {
     val rec = new DogStatsDStatsReceiver(testhost, testport, testFormatter)
-    val c = rec.addGauge("bobs", "your", "uncle") _
+    val c   = rec.addGauge("bobs", "your", "uncle") _
     c(2.0f)
     c(3.0f)
     Thread.sleep(20)
@@ -125,7 +121,7 @@ class StatsReceiversSpec
   }
   it should "create a stat" in {
     val rec = new DogStatsDStatsReceiver(testhost, testport, testFormatter)
-    val c = rec.stat("bobs", "your", "uncle")
+    val c   = rec.stat("bobs", "your", "uncle")
     c.add(100)
     c.add(110)
     Thread.sleep(20)
@@ -137,7 +133,7 @@ class StatsReceiversSpec
 
   "NameFormatter" should "append a prefix to all stat names" in {
     val rec = new StatsDStatsReceiver(testhost, testport, new NameFormatter("its.complicated"))
-    val c = rec.counter("bobs", "your", "uncle")
+    val c   = rec.counter("bobs", "your", "uncle")
     Thread.sleep(20)
     val messages = TestStatsDServer.extract
     messages.size should be(1)
@@ -145,7 +141,7 @@ class StatsReceiversSpec
   }
   it should "not put a period in if it's not needed" in {
     val rec = new StatsDStatsReceiver(testhost, testport, new NameFormatter("its.complicated."))
-    val c = rec.counter("bobs", "your", "uncle")
+    val c   = rec.counter("bobs", "your", "uncle")
     Thread.sleep(20)
     val messages = TestStatsDServer.extract
     messages.size should be(1)
