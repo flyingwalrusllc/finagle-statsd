@@ -1,6 +1,6 @@
 language: scala
 sudo: true
-dist: xenial
+dist: trusty
 scala:
    - 2.11.12
    - 2.12.10
