@@ -1,17 +1,26 @@
 language: scala
+
 sudo: true
+
 dist: xenial
+
 scala:
    - 2.11.12
-   - 2.12.8
+   - 2.12.10
+   
 jdk:
-  - oraclejdk8
-before_cache:
-- find $HOME/.ivy2 -name "ivydata-*.properties" -delete
-- find $HOME/.sbt -name "*.lock" -delete
+  - openjdk8
+
+sbt_args: -J-Xmx8192M
+
+install:
+  - pip install --user codecov
+  
 cache:
   directories:
-  - "$HOME/.ivy2/cache"
-  - "$HOME/.sbt/boot/"
+    - $HOME/.ivy2/cache
+    - $HOME/.sbt
+    - $HOME/.coursier
+
 script:
-  sbt ++$TRAVIS_SCALA_VERSION +test
+  sbt ++$TRAVIS_SCALA_VERSION clean coverage test coverageReport
