@@ -32,11 +32,11 @@ class CensorinusStatsReceiver
 
   override val repr: AnyRef = this
 
-  def counter(name: String*) = impl.counter(name: _*)
+  def counter(verbosity: Verbosity,name: String*) = impl.counter(verbosity,name: _*)
 
-  def addGauge(name: String*)(f: => Float) = impl.addGauge(name: _*)(f)
+  override def addGauge(verbosity: Verbosity,name: String*)(f: => Float) = impl.addGauge(verbosity,name: _*)(f)
 
-  def stat(name: String*) = impl.stat(name: _*)
+  override def stat(verbosity: Verbosity,name: String*) = impl.stat(verbosity,name: _*)
 
 }
 
@@ -54,22 +54,22 @@ class StatsDStatsReceiver(
 
   override val repr: AnyRef = this
 
-  def counter(name: String*) = new Counter {
+  def counter(verbosity: Verbosity,name: String*) = new Counter {
     val counterName = formatter.formatName(name)
     c.counter(counterName, value = 0)
-    override def incr(delta: Int): Unit = {
+    def incr(delta: Long): Unit = {
       c.increment(counterName, delta.toDouble)
     }
   }
 
-  def stat(name: String*) = new Stat {
+  def stat(verbosity: Verbosity, name: String*) = new Stat {
     val statName = formatter.formatName(name)
     def add(value: Float) = {
       c.set(name = statName, value = value.toString)
     }
   }
 
-  def addGauge(name: String*)(f: => Float) = new Gauge {
+  def addGauge(verbosity: Verbosity,name: String*)(f: => Float) = new Gauge {
     val gaugeName = formatter.formatName(name)
     def remove(): Unit = {
     }
@@ -88,22 +88,22 @@ class DogStatsDStatsReceiver(
 
   val c = new DogStatsDClient(host, port)
 
-  def counter(name: String*) = new Counter {
+  def counter(verbosity: Verbosity,name: String*) = new Counter {
     val counterName = formatter.formatName(name)
     c.counter(counterName, value = 0)
-    override def incr(delta: Int): Unit = {
+    def incr(delta: Long): Unit = {
       c.increment(formatter.formatName(name), delta.toDouble)
     }
   }
 
-  def stat(name: String*) = new Stat {
+  def stat(verbosity: Verbosity,name: String*) = new Stat {
     val statName = formatter.formatName(name)
     def add(value: Float) = {
       c.set(name = statName, value = value.toString)
     }
   }
 
-  def addGauge(name: String*)(f: => Float) = new Gauge {
+  def addGauge(verbosity: Verbosity,name: String*)(f: => Float) = new Gauge {
     val gaugeName = formatter.formatName(name)
     def remove(): Unit = {
     }

@@ -1,8 +1,8 @@
 
-name := "finagle-censorinus"
+name := "finagle-statsd"
 organization := "com.crispywalrus"
 scalaVersion := "2.12.10"
-crossScalaVersions = Seq("2.11.12","2.12.10","2.13.0")
+crossScalaVersions := Seq("2.11.12",scalaVersion.value)
 
 scalacOptions := Seq(
   "-encoding", "UTF-8",
